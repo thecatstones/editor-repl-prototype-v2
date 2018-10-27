@@ -18,6 +18,9 @@ import 'codemirror/theme/seti.css'
 import 'codemirror/mode/javascript/javascript.js'
 // import jQuery for CodeMirror...?
 
+import GlotAPI from 'glot-api'
+const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
+
 Y({
   db: {
     name: 'memory',                // store the shared data in memory
@@ -51,12 +54,24 @@ Y({
   })
 
   y.share.text.bindCodeMirror(editor)
-  // y.define('codemirror', Y.Text).bindCodeMirror(editor)
 
   // debugging
   window.CodeMirror = CodeMirror
-  window.code = code
-  window.editor = editor
+  window.code       = code
+  window.editor     = editor
+  window.glot     = glot
+
+  // setup Glot
+  // TODO: fix 'Access-Control-Allow-Origin' 405 error
+  const runEditorButton = document.querySelector('#run-editor-code')
+  runEditorButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    glot.run('javascript', [{
+      name: 'editor.js',
+      content: 'console.log(42)',
+    }])
+  })
+  
 
 
   // setup REPL

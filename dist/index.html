@@ -5,7 +5,11 @@
     <title>The Cat Stones Editor</title>
   </head>
   <body>
-    <textarea id='codeMirrorContainer'></textarea>
+    <div>
+      <textarea id='codeMirrorContainer'></textarea>
+      <button type='button' id='run-editor-code'>Run Editor Code</button>
+    </div>
+
     <div>
       <form id='console-form'>
         <input type='text' id='command' />
@@ -14,6 +18,7 @@
       </form>
       <pre id='console'></pre>
     </div>
+
     <script src='main.js'></script>
   </body>
 </html>
