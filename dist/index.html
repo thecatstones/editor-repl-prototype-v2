@@ -1,9 +1,19 @@
 <!doctype html>
-<html>
+<html lang='en-US'>
   <head>
+    <meta charset='UTF-8' />
     <title>The Cat Stones Editor</title>
   </head>
   <body>
+    <textarea id='codeMirrorContainer'></textarea>
+    <div>
+      <form id='console-form'>
+        <input type='text' id='command' />
+        <button type='submit'>Run Command</button>
+        <button id='clear' type='button'>Clear</button>
+      </form>
+      <pre id='console'></pre>
+    </div>
     <script src='main.js'></script>
   </body>
 </html>

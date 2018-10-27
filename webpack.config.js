@@ -1,9 +1,10 @@
-const path = require('path')
+const path    = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
+  devtool: 'inline-source-map',
   entry: './src/index.js',
-  // devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
   },
@@ -12,6 +13,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
+  plugins: [
+    new webpack.ContextReplacementPlugin(/y.*/),  // TODO: lookup
+  ],
   module: {
     rules: [
       {
