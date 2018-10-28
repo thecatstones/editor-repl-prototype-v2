@@ -20,7 +20,7 @@ import GlotAPI from 'glot-api'
 const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
 
 var io = Y['websockets-client'].io
-// var url = window.location.href.includes('heroku') ? 'https://catstones-websocket-server.herokuapp.com/' : undefined
+var url = window.location.href.includes('heroku') ? 'https://catstones-websocket-server.herokuapp.com/' : undefined
 // var url = io('https://catstones-websocket-server.herokuapp.com/')
               // https://catstones-websocket-server.herokuapp.com/
 
@@ -34,10 +34,10 @@ Y({
 
     // TODO: stop Chrome from blocking connection to heroku server when running locally
     // - comment out `url` to use Yjs-provided WebSocket server
-    // url,
+    url,
     // url: 'localhost:1234',
     // url: 'https://catstones-websocket-server.herokuapp.com/',
-    url: 'https://catstones-websocket-server.herokuapp.com/',
+    // url: 'https://catstones-websocket-server.herokuapp.com/',
   },
   share: {                         // specify the shared content
     array: 'Array',                // y.share.array is of type Y.Array
