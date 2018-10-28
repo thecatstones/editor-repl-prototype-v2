@@ -6,10 +6,9 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server --open",
-    "server": "node server.js",
-    "index": "node index.js",
-    "bs": "webpack && node server.js"
+    "start": "node server.js",
+    "dev": "webpack-dev-server --open",
+    "postinstall": "webpack"
   },
   "author": "thecatstones",
   "license": "ISC",
