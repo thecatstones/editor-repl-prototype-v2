@@ -1,5 +1,5 @@
 {
-  "name": "development",
+  "name": "catstones-editor",
   "version": "1.0.0",
   "description": "The Cat Stones Editor",
   "private": true,
@@ -10,7 +10,6 @@
     "index": "node index.js",
     "bs": "webpack && node server.js"
   },
-  "keywords": [],
   "author": "thecatstones",
   "license": "ISC",
   "devDependencies": {
