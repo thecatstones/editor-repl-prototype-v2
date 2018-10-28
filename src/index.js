@@ -7,27 +7,15 @@ import yArray            from 'y-array'
 import yText             from 'y-text'
 Y.extend(yWebsocketsClient, yMemory, yArray, yText)
 
-// import CodeMirror from 'codemirror'
-// import '../node_modules/codemirror/lib/codemirror.css'
-// import '../node_modules/codemirror/theme/seti.css'
 import CodeMirror from 'codemirror/lib/codemirror.js'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/seti.css'
 import 'codemirror/mode/javascript/javascript.js'
-// import jQuery for CodeMirror...?
 
-// // --- GLOT ---
-// import GlotAPI from 'glot-api'
-// const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
+import GlotAPI from 'glot-api'
+const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
 
-var io = Y['websockets-client'].io
-window.io = io
-// var url = window.location.href.includes('heroku') ? 'https://catstones-websocket-server.herokuapp.com/' : undefined
-var url = 'https://catstones-websocket-server.herokuapp.com/'
-// var url = io('https://catstones-websocket-server.herokuapp.com/')
-window.req_url = url
-              // https://catstones-websocket-server.herokuapp.com/
-
+const url = 'https://catstones-websocket-server.herokuapp.com/'
 Y({
   db: {
     name: 'memory',                // store the shared data in memory
@@ -35,23 +23,14 @@ Y({
   connector: {
     name: 'websockets-client',     // use the websockets connector
     room: 'my room',               // instances connected to the same room share data
-
-    // TODO: stop Chrome from blocking connection to heroku server when running locally
-    // - comment out `url` to use Yjs-provided WebSocket server
     url,
-    // url: 'localhost:1234',
-    // url: 'https://catstones-websocket-server.herokuapp.com/',
-    // url: 'https://catstones-websocket-server.herokuapp.com/',
   },
   share: {                         // specify the shared content
-    array: 'Array',                // y.share.array is of type Y.Array
-    text:  'Text',                 // y.share.text is of type Y.Text
-    text2:  'Text',
+    array:       'Array',
+    editorText:  'Text',
+    ReplText:    'Text',
   },
 }).then((y) => {                   // Yjs is successfully initialized
-  // for debugging
-  window.y = y
-  window.Y = Y
   console.log('Yjs instance ready!')
 
   // setup CodeMirror
@@ -62,38 +41,39 @@ Y({
     lineNumbers: true,
     tabSize:     2,
   })
-
-  y.share.text.bindCodeMirror(editor)
+  y.share.editorText.bindCodeMirror(editor)
 
   // debugging
+  window.y          = y
+  window.Y          = Y
   window.CodeMirror = CodeMirror
   window.code       = code
   window.editor     = editor
-  // window.glot       = glot
+  window.glot       = glot
 
-  // // --- GLOT ---
-  // // setup Glot
-  // // TODO: fix 'Access-Control-Allow-Origin' 405 error
-  // const runEditorButton = document.querySelector('#run-editor-code')
-  // runEditorButton.addEventListener('click', (event) => {
-  //   event.preventDefault()
-  //   glot.run('javascript', [{
-  //     name: 'editor.js',
-  //     content: 'console.log(42)',
-  //   }])
-  // })
-  
+
+  // setup Glot
+  // TODO: fix 'Access-Control-Allow-Origin' 405 error
+  const runEditorButton = document.querySelector('#run-editor-code')
+  runEditorButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    glot.run('javascript', [{
+      name:    'editor.js',
+      content: 'console.log(42)',
+    }])
+  })
 
 
 
   // setup REPL
+  // TODO: refactor
   const consoleElm  = document.querySelector('#console')
   const clearButton = document.querySelector('#clear')
 
   clearButton.addEventListener('click', (event) => {
     y.share.array.delete(0, y.share.array.length)
     consoleForm.reset()
-    y.share.text2.delete(0, y.share.text2.length)
+    y.share.ReplText.delete(0, y.share.ReplText.length)
   })
 
   const consoleForm = document.querySelector('#console-form')
@@ -105,10 +85,10 @@ Y({
     let output  = `${JSON.stringify(value)}\n`
     y.share.array.push([output])
     consoleForm.reset()
-    y.share.text2.delete(0, y.share.text2.length)
+    y.share.ReplText.delete(0, y.share.ReplText.length)
   })
 
-  y.share.text2.bind(document.querySelector('#command'))
+  y.share.ReplText.bind(document.querySelector('#command'))
 
   y.share.array.observe(event => {
     if (event.type == 'insert') {
