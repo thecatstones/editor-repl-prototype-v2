@@ -12,8 +12,8 @@ import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/seti.css'
 import 'codemirror/mode/javascript/javascript.js'
 
-import GlotAPI from 'glot-api'
-const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
+// import GlotAPI from 'glot-api'
+// const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
 
 const url = 'https://catstones-websocket-server.herokuapp.com/'
 Y({
@@ -22,7 +22,7 @@ Y({
   },
   connector: {
     name: 'websockets-client',     // use the websockets connector
-    room: 'my room',               // instances connected to the same room share data
+    room: 'catstones-repl',               // instances connected to the same room share data
     url,
   },
   share: {                         // specify the shared content
@@ -46,22 +46,23 @@ Y({
   // debugging
   window.y          = y
   window.Y          = Y
+  window.io         = Y['websockets-client'].io
   window.CodeMirror = CodeMirror
   window.code       = code
   window.editor     = editor
-  window.glot       = glot
+  // window.glot       = glot
 
 
-  // setup Glot
-  // TODO: fix 'Access-Control-Allow-Origin' 405 error
-  const runEditorButton = document.querySelector('#run-editor-code')
-  runEditorButton.addEventListener('click', (event) => {
-    event.preventDefault()
-    glot.run('javascript', [{
-      name:    'editor.js',
-      content: 'console.log(42)',
-    }])
-  })
+//   // setup Glot
+//   // TODO: fix 'Access-Control-Allow-Origin' 405 error
+//   const runEditorButton = document.querySelector('#run-editor-code')
+//   runEditorButton.addEventListener('click', (event) => {
+//     event.preventDefault()
+//     glot.run('javascript', [{
+//       name:    'editor.js',
+//       content: 'console.log(42)',
+//     }])
+//   })
 
 
 

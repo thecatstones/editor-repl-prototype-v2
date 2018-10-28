@@ -1,7 +1,7 @@
 {
-  "name": "catstones-editor",
+  "name": "catstones-repl",
   "version": "1.0.0",
-  "description": "The Cat Stones Editor",
+  "description": "The Cat Stones REPL",
   "engines": {
     "node": "11.0.0"
   },
