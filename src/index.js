@@ -37,7 +37,7 @@ Y({
     // url,
     // url: 'localhost:1234',
     // url: 'https://catstones-websocket-server.herokuapp.com/',
-    url: 'catstones-websocket-server.herokuapp.com/',
+    url: 'https://catstones-websocket-server.herokuapp.com/',
   },
   share: {                         // specify the shared content
     array: 'Array',                // y.share.array is of type Y.Array
