@@ -20,9 +20,11 @@ import GlotAPI from 'glot-api'
 const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
 
 var io = Y['websockets-client'].io
+window.io = io
 // var url = window.location.href.includes('heroku') ? 'https://catstones-websocket-server.herokuapp.com/' : undefined
-const url = 'https://catstones-websocket-server.herokuapp.com/'
-// var url = io('https://catstones-websocket-server.herokuapp.com/')
+// const url = 'https://catstones-websocket-server.herokuapp.com/'
+var url = io('https://catstones-websocket-server.herokuapp.com/')
+window.req_url = url
               // https://catstones-websocket-server.herokuapp.com/
 
 Y({
