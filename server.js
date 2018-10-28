@@ -16,5 +16,5 @@ app.use(webpackDevMiddleware(compiler, {
 
 app
   .use(express.static(path.join(__dirname, 'dist')))
-  .get('/', (req, res) => res.sendFile('public/index.html'))
+  .get('/', (req, res) => res.sendFile('index.html'))
   .listen(port, () => console.log(`Express server listening on port ${port}`))
