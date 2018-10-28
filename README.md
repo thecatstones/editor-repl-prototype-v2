@@ -1,5 +1,5 @@
 # Shared Editor/REPL Prototype
-Built with Yjs, Express, Webpack, and Codemirror.
+Built with Yjs, Express, Webpack, Codemirror, and the WebSocket protocol.
 Try it out here: https://catstones-editor-v2.herokuapp.com/
 
 ## Instructions to Run Locally
@@ -8,4 +8,8 @@ Try it out here: https://catstones-editor-v2.herokuapp.com/
 3. `npm install`
 4. `npm run build`
 5. `npm start`
-6. Open two browser windows at http://localhost:3000 and type into text editor or REPL to see collaboration
+6. Open two browser windows at http://localhost:3000 and type into text editor or REPL to see collaboration.
+  - Collaboration also works between the [Heroku app](https://catstones-editor-v2.herokuapp.com/) and the locally hosted app.
+
+### WebSocket Server
+https://github.com/thecatstones/websocket-server-yjs
