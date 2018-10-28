@@ -13,6 +13,13 @@ const cors = require('cors')
 const corsOptions = {
   origin: '*',
   credentials: true,  // Set to true to pass the Access-Control-Allow-Credentials CORS header
+  allowedHeaders: [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type', 
+    'Accept-Type',
+    '*',
+  ],
 }
 app.use(cors(corsOptions))
 

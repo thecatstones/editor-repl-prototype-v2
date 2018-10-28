@@ -16,13 +16,17 @@ import 'codemirror/mode/javascript/javascript.js'
 // const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
 
 const url = 'https://catstones-websocket-server.herokuapp.com/'
+var io = Y['websockets-client'].io
+window.io = io
+window.Y = Y
 Y({
   db: {
     name: 'memory',                // store the shared data in memory
   },
   connector: {
     name: 'websockets-client',     // use the websockets connector
-    room: 'catstones-repl',               // instances connected to the same room share data
+    room: 'catstones-repl',        // instances connected to the same room share data
+    socket: io(url),               // Pass socket.io object to use (CORS...?)
     url,
   },
   share: {                         // specify the shared content
