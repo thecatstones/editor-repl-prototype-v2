@@ -10,19 +10,9 @@ const path = require('path')
 const port = process.env.PORT || 3000
 
 const cors = require('cors')
-const whitelist = [
-  'http://localhost',
-  'https://localhost',
-  'https://catstones-editor.herokuapp.com',
-  'https://catstones-editor-v2.herokuapp.com'
-]
 const corsOptions = {
+  origin: '*',
   credentials: true,  // Set to true to pass the Access-Control-Allow-Credentials CORS header
-  origin: (origin, callback) => {
-    if (whitelist.includes(origin))
-      return callback(null, true)
-      callback(new Error('Not allowed by CORS'))
-  }
 }
 app.use(cors(corsOptions))
 
