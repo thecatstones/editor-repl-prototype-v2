@@ -16,14 +16,15 @@ import 'codemirror/theme/seti.css'
 import 'codemirror/mode/javascript/javascript.js'
 // import jQuery for CodeMirror...?
 
-import GlotAPI from 'glot-api'
-const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
+// // --- GLOT ---
+// import GlotAPI from 'glot-api'
+// const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
 
 var io = Y['websockets-client'].io
 window.io = io
 // var url = window.location.href.includes('heroku') ? 'https://catstones-websocket-server.herokuapp.com/' : undefined
-// const url = 'https://catstones-websocket-server.herokuapp.com/'
-var url = io('https://catstones-websocket-server.herokuapp.com/')
+var url = 'https://catstones-websocket-server.herokuapp.com/'
+// var url = io('https://catstones-websocket-server.herokuapp.com/')
 window.req_url = url
               // https://catstones-websocket-server.herokuapp.com/
 
@@ -68,18 +69,19 @@ Y({
   window.CodeMirror = CodeMirror
   window.code       = code
   window.editor     = editor
-  window.glot       = glot
+  // window.glot       = glot
 
-  // setup Glot
-  // TODO: fix 'Access-Control-Allow-Origin' 405 error
-  const runEditorButton = document.querySelector('#run-editor-code')
-  runEditorButton.addEventListener('click', (event) => {
-    event.preventDefault()
-    glot.run('javascript', [{
-      name: 'editor.js',
-      content: 'console.log(42)',
-    }])
-  })
+  // // --- GLOT ---
+  // // setup Glot
+  // // TODO: fix 'Access-Control-Allow-Origin' 405 error
+  // const runEditorButton = document.querySelector('#run-editor-code')
+  // runEditorButton.addEventListener('click', (event) => {
+  //   event.preventDefault()
+  //   glot.run('javascript', [{
+  //     name: 'editor.js',
+  //     content: 'console.log(42)',
+  //   }])
+  // })
   
 
 
