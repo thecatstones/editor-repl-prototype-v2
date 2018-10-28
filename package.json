@@ -11,6 +11,7 @@
     "build": "webpack",
     "dev": "webpack-dev-server --open",
     "start": "node server.js",
+    "deploy": "git push heroku master",
     "heroku-postbuild": "webpack -p"
   },
   "author": "thecatstones",
@@ -20,8 +21,10 @@
     "codemirror": "^5.41.0",
     "cors": "^2.8.4",
     "css-loader": "^1.0.0",
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "glot-api": "^0.1.0",
+    "node-fetch": "^2.2.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
