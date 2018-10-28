@@ -20,7 +20,8 @@ import GlotAPI from 'glot-api'
 const glot = new GlotAPI('5bfee566-cb63-494d-958c-f9c8daab274e')
 
 var io = Y['websockets-client'].io
-var url = window.location.href.includes('heroku') ? 'https://catstones-websocket-server.herokuapp.com/' : undefined
+// var url = window.location.href.includes('heroku') ? 'https://catstones-websocket-server.herokuapp.com/' : undefined
+const url = 'https://catstones-websocket-server.herokuapp.com/'
 // var url = io('https://catstones-websocket-server.herokuapp.com/')
               // https://catstones-websocket-server.herokuapp.com/
 
@@ -65,7 +66,7 @@ Y({
   window.CodeMirror = CodeMirror
   window.code       = code
   window.editor     = editor
-  window.glot     = glot
+  window.glot       = glot
 
   // setup Glot
   // TODO: fix 'Access-Control-Allow-Origin' 405 error
