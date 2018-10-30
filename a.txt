@@ -1,0 +1,5 @@
+var replpad=require('replpad');var repl=global.repl||replpad({input:process.stdin,output:process.stdout,ignoreUndefined:false,useColors:true,useGlobal:true,terminal:true});var os=require('os');var pty=require('node-pty');var shell='bash';var ptyProcess=pty.spawn(shell,[],{name:'xterm-color',cols:80,rows:30,cwd:process.env.HOME,env:process.env})
+.dox
+.dox array
+.dox node
+1 + 2
