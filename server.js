@@ -1,5 +1,5 @@
-const express              = require('express')
-const webpack              = require('webpack')
+const express = require('express')
+const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 
 const app      = express()
@@ -16,7 +16,7 @@ const corsOptions = {
   allowedHeaders: [
     'Origin',
     'X-Requested-With',
-    'Content-Type', 
+    'Content-Type',
     'Accept-Type',
     '*',
   ],

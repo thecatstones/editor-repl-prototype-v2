@@ -14,8 +14,7 @@ import 'codemirror/mode/javascript/javascript.js'
 
 const url = 'https://catstones-websocket-server.herokuapp.com/'
 var io = Y['websockets-client'].io
-window.io = io
-window.Y = Y
+
 Y({
   db: {
     name: 'memory',                // store the shared data in memory
