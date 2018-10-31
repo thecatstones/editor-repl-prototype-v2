@@ -1,5 +1,5 @@
 # Shared Editor/REPL Prototype
-Built with Yjs, Express, Webpack, Codemirror, and the WebSocket protocol.
+Built with Yjs, Express, Codemirror, and the WebSocket protocol.
 Try it out here: https://catstones-editor-v2.herokuapp.com/
 
 ## Instructions to Run Locally

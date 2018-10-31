@@ -1,10 +1,10 @@
 const express = require('express')
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
+// const webpack = require('webpack')
+// const webpackDevMiddleware = require('webpack-dev-middleware')
 
 const app      = express()
-const config   = require('./webpack.config.js')
-const compiler = webpack(config)
+// const config   = require('./webpack.config.js')
+// const compiler = webpack(config)
 
 const path = require('path')
 const port = process.env.PORT || 3000
@@ -28,9 +28,9 @@ const Repl = require('./repl.js')
 let repl   = null
 
 // ---------- Middleware ----------
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-}))
+// app.use(webpackDevMiddleware(compiler, {
+//   publicPath: config.output.publicPath,
+// }))
 app.use(express.static(path.join(__dirname, 'dist')))
 app.use(cors(corsOptions))
 
