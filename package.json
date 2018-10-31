@@ -5,18 +5,17 @@
   "engines": {
     "node": "11.0.0"
   },
-  "main": "index.js",
-  "private": true,
+  "main": "server.js",
   "scripts": {
-    "build": "",
-    "dev": "",
+    "build": "browserify src/index.js -o public/js/index.js -d",
+    "dev": "echo 'no dev yet'",
     "start": "node server.js",
-    "heroku-postbuild": ""
+    "heroku-postbuild": "echo 'no heroku postbuild yet'"
   },
   "author": "thecatstones",
-  "license": "ISC",
-  "devDependencies": {},
+  "license": "MIT",
   "dependencies": {
+    "browserify": "^16.2.3",
     "codemirror": "^5.41.0",
     "cors": "^2.8.4",
     "express": "^4.16.4",
