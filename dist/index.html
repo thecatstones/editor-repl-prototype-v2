@@ -5,22 +5,15 @@
     <title>The Cat Stones REPL</title>
   </head>
   <body>
+    <!-- Editor -->
     <div>
       <textarea id='codeMirrorContainer'></textarea>
-      <button type='button' id='run-editor-code'>Run Editor Code</button>
-      <pre id='editor-output'>
-// Output
-      </pre>
+      <button type='button' id='run-editor-code'>Run Code</button>
+      <pre id='editor-output'>// Editor Output ...<pre>
     </div>
 
-    <div>
-      <form id='console-form'>
-        <input type='text' id='command' />
-        <button type='submit'>Run Command</button>
-        <button id='clear' type='button'>Clear</button>
-      </form>
-      <pre id='console'></pre>
-    </div>
+    <!-- xterm.js REPL -->
+    <div id='terminal'></div>
 
     <script src='main.js'></script>
   </body>

@@ -3,25 +3,27 @@ body {
   color:       #eee;
 }
 
+html, body, textarea, input, div, button, pre, .terminal, .xterm, #terminal, .codeMirrorContainer, .CodeMirror {
+  font-family: 'Fira Code', 'Inconsolata LGC', 'Inconsolata', Consolas, Monaco, 'Fira Mono', 'Liberation Mono', 'Droid Sans Mono', monospace
+}
+
 input  {
   background:  #151515;
-  color:       #eee;
   border:      #33b5e5;
+  color:       #eee;
 }
 
 button {
   background:  #33b5e5;
-  color:       #000;
   border:      none;
+  color:       #000;
 }
 
-pre {
+#editor-output, #terminal {
   border-top: solid 1px #33b5e5;
+  padding-top: 15px;
 }
 
-#console-form {
-  border-top: solid 1px #33b5e5;
-}
 
 /* .CodeMirror { */
 /*   position:  fixed; */
