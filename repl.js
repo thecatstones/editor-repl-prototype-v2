@@ -1,3 +1,5 @@
+console.log('[REPL.JS]')
+
 const pty = require('node-pty')
 
 const Repl = {

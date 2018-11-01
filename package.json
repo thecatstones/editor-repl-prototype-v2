@@ -5,20 +5,24 @@
   "engines": {
     "node": "11.0.0"
   },
-  "main": "index.js",
-  "private": true,
+  "esm": {
+    "mode": "auto"
+  },
+  "main": "server.js",
+  "module": "main.js",
   "scripts": {
+    "start": "node -r esm index.js",
     "build": "",
     "dev": "",
-    "start": "node server.js",
     "heroku-postbuild": ""
   },
   "author": "thecatstones",
-  "license": "ISC",
-  "devDependencies": {},
+  "license": "MIT",
   "dependencies": {
-    "codemirror": "^5.41.0",
+    "codemirror-minified": "^5.37.0",
+    "codemirror-one-dark-theme": "^1.1.1",
     "cors": "^2.8.4",
+    "esm": "^3.0.84",
     "express": "^4.16.4",
     "node-pty": "^0.7.8",
     "xterm": "^3.8.0",
@@ -27,5 +31,6 @@
     "y-text": "^9.5.1",
     "y-websockets-client": "^8.0.16",
     "yjs": "^12.3.3"
-  }
+  },
+  "repository": "git@github.com:thecatstones/editor-repl-prototype-v2.git"
 }

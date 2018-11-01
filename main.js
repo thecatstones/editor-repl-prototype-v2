@@ -1,5 +1,8 @@
-//*** import './style.css'
+console.log('[MAIN.JS]')
 
+// import './style.css'
+
+console.log(42)
 // ======================= Editor =========================
 import CodeMirror from 'codemirror/lib/codemirror.js'
 import 'codemirror/lib/codemirror.css'

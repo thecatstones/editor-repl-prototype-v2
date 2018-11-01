@@ -1,3 +1,5 @@
+console.log('[SERVER.JS]')
+
 const express = require('express')
 // const webpack = require('webpack')
 // const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -34,18 +36,27 @@ let repl   = null
 app.use(express.static(path.join(__dirname, 'dist')))
 app.use(cors(corsOptions))
 
+
+// ---------- Listen ----------
+app.listen(port, () => {
+  console.log(`Express server listening on port ${port}`)
+})
+
+
 // ---------- Routes ----------
 app.get('/', (request, response) => {
-  response.sendFile('index.html/javascript')
+  // response.sendFile('index.html/javascript')
+  // response.sendFile('./dist/index.html')
+  response.sendFile(path.join(__dirname, './dist/index.html'))
 })
 
 // TODO: kill previous REPL process when user switches to a different language
 app.get('/:language', (request, response) => {
-  console.log('params.language', request.params.language)
+  console.log('|-request.params.language]', request.params.language)
   let execCommand = Repl.LANGUAGES[request.params.language] || 'node'
   if (!execCommand) return
   repl = Repl.new(execCommand)
-  response.sendFile(path.join(__dirname, './index.html'))
+  response.sendFile(path.join(__dirname, './dist/index.html'))
 })
 
 app.post('/input', (request, response) => {
@@ -53,9 +64,4 @@ app.post('/input', (request, response) => {
     .then((data) => {
       response.send(data)
     })
-})
-
-// ---------- Listen ----------
-app.listen(port, () => {
-  console.log(`Express server listening on port ${port}`)
 })
