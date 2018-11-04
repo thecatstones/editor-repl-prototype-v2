@@ -125,8 +125,8 @@ const evaluate = (line) => {
 const handleTermEnter = (event) => {
   console.log('[handleTermEnter]', event)
   term.writeln('')
-  evaluate(state.line)
-    .then(response => response.text())
+    evaluate(state.line)
+      .then(response => response.text())
     .then((data) => {
       console.log('[response data]:', data)
       term.write(data)
