@@ -27,7 +27,7 @@ const Repl = {
       this.process.write(`${string}\n`)
       let result = ''
       this.process.on('data', data => (result += data))
-      setTimeout(() => (resolve(result)), 10)
+      setTimeout(() => (resolve(result)), 27)
       // Wait for output to buffer...
     })
   },

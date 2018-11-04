@@ -105,17 +105,25 @@ const handleTermKeydown = (event) => {
 }
 
 term.on('keypress', handleTermKeypress)
-term.on('keydown', handleTermKeydown)
+term.on('keydown',  handleTermKeydown)
 
-// term.on('key', (...args) => console.log('key', args))
-// term.on('keydown', (...args) => console.log('keydown', args))
 
-// document.addEventListener('keyup', (event) => {
-//   console.log('[keyup listener]', 'state.line ==', state.line, event)
-//   if (event.target !== termTextArea) return
-//   if (event.key === 'Enter') handleTermEnter(event)
-//   else if (event.key === 'Backspace') handleTermBackspace(event)
-// })
+const handleRunCodeClick = (event) => {
+  console.log('[handleRunCodeClick]', event)
+  let editorText = y.share.editorText._content.map(x => x.val).join('')
+  term.writeln('')
+  evaluate(editorText)
+    .then(response => response.text())
+    .then((data) => {
+      console.log('[response data]:', data)
+      term.write(data)
+      state.line = ''
+    })
+}
+
+const runCodeButton   = document.getElementById('run-code')
+runCodeButton.onclick = handleRunCodeClick
+
 
 
 // ========================= Yjs =========================
