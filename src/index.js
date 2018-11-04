@@ -56,8 +56,6 @@ term.setOption('tabStopWidth', 2)
 
 term.open(document.getElementById('terminal'))
 term.fit()
-// term.writeln('--- The Cat Stones REPL ---')
-// term.writeln('')
 term.write('> ')
 
 const termTextArea = document.querySelector('.xterm-helper-textarea')
@@ -66,45 +64,58 @@ let state = {
   line: '',
 }
 
-const evaluate = (line) => (
-  fetch('/input', {
-    method  : 'POST',
-    headers : { 'Content-Type': 'text/plain; charset=utf-8' },
-    body    : line,
+const evaluate = (line) => {
+  console.log('[evaluate]', 'state.line ==', state.line, 'line ==', line)
+  return fetch('/input', {
+    method:   'POST',
+    headers:  { 'Content-Type': 'text/plain; charset=utf-8' },
+    body:     line,
   })
-)
-
-const handleTerminalKeypress = ({ target, key }) => {
-  if (target !== termTextArea) return
-  term.write(key)
-  state.line += key
 }
 
-const handleEnterReleased = () => {
+const handleTermEnter = (event) => {
+  console.log('[handleTermEnter]', event)
   term.writeln('')
   evaluate(state.line)
     .then(response => response.text())
     .then((data) => {
-      console.log(data)
+      console.log('[response data]:', data)
       term.write(data)
       state.line = ''
     })
 }
 
-const handleBackspaceReleased = () => {
+const handleTermBackspace = (event) => {
+  console.log('[handleTermBackspace]', event)
   term.write('\b \b')
   state.line = state.line.slice(0, -1)
-  console.log(state.line)
+  console.log('state.line ==', state.line)
 }
 
-document.addEventListener('keypress', handleTerminalKeypress)
+const handleTermKeypress = (key, event) => {
+  console.log('----------------------\n[handleTermKeypress]', 'state.line ==', state.line, key, event)
+  term.write(key)
+  state.line += key
+}
 
-document.addEventListener('keyup', ({ target, key }) => {
-  if (target !== termTextArea) return
-  console.log(state.line)
-  if (key === 'Enter')     return handleEnterReleased()
-  if (key === 'Backspace') return handleBackspaceReleased()
-})
+const handleTermKeydown = (event) => {
+  console.log('----------------------\n[handleTermKeydown]', 'state.line ==', state.line, event)
+  if      (event.key === 'Enter')     handleTermEnter(event)
+  else if (event.key === 'Backspace') handleTermBackspace(event)
+}
+
+term.on('keypress', handleTermKeypress)
+term.on('keydown', handleTermKeydown)
+
+// term.on('key', (...args) => console.log('key', args))
+// term.on('keydown', (...args) => console.log('keydown', args))
+
+// document.addEventListener('keyup', (event) => {
+//   console.log('[keyup listener]', 'state.line ==', state.line, event)
+//   if (event.target !== termTextArea) return
+//   if (event.key === 'Enter') handleTermEnter(event)
+//   else if (event.key === 'Backspace') handleTermBackspace(event)
+// })
 
 
 // ========================= Yjs =========================
@@ -133,7 +144,6 @@ Y({
     terminalText:  'Text',
   },
 }).then((y) => {                // Yjs is successfully initialized
-  // ~~~~~ debugging ~~~~~ TODO: remove
   console.log('Yjs instance ready!')
   window.y = y
 
@@ -141,7 +151,6 @@ Y({
 })
 
 
-// ~~~~~ debugging ~~~~~ TODO: remove
 // Yjs
 window.Y          = Y
 window.io         = Y['websockets-client'].io

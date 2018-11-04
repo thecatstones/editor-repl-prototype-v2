@@ -13,9 +13,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
-  // plugins: [
-  //   new webpack.ContextReplacementPlugin(/y.*/),  // TODO: lookup
-  // ],
+  plugins: [
+    new webpack.ContextReplacementPlugin(/y.*/),  // TODO: lookup
+  ],
   module: {
     rules: [
       {

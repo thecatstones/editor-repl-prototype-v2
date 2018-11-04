@@ -2,20 +2,19 @@ console.log('[REPL.JS]: first line')
 
 const pty = require('node-pty')
 
+const LANG_COMMANDS = {
+  javascript:  'node',
+  ruby:        'irb',
+  python:      'python',
+}
+
 const Repl = {
-  // TODO: add langs and uncomment
-  LANGUAGES: {
-    javascript : 'node',
-    // python     : 'python',
-    // ruby       : 'pry',
-  },
-
-  new(execCommand) {
-    return Object.create(this.init(execCommand))
-  },
-
-  init(execCommand) {
-    this.process = pty.spawn(execCommand)
+  init(language = 'javascript') {
+    let command  = LANG_COMMANDS[language]
+    if (!command) throw 'Invalid language'
+    this.language = language
+    this.command  = command
+    this.process  = pty.spawn(command)
     return this
   },
 
@@ -25,14 +24,10 @@ const Repl = {
 
   write(string) {
     return new Promise((resolve, reject) => {
-      let result = ''
       this.process.write(`${string}\n`)
-      this.process.on('data', (data) => {
-        result += data
-      })
-      setTimeout(() => {
-        resolve(result)
-      }, 10)
+      let result = ''
+      this.process.on('data', data => (result += data))
+      setTimeout(() => (resolve(result)), 10)
       // Wait for output to buffer...
     })
   },

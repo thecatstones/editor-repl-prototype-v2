@@ -11,6 +11,8 @@ const compiler = webpack(config)
 const path = require('path')
 const port = process.env.PORT || 3000
 
+const bodyParser = require('body-parser')
+
 // TODO: get CORS to work on custom WebSocket Server
 const cors = require('cors')
 const corsOptions = {
@@ -27,7 +29,8 @@ const corsOptions = {
 }
 
 const Repl = require('./src/repl.js')
-let repl   = null
+let repl   = Object.create(Repl).init('javascript')
+console.log(repl)
 
 // ---------- Middleware ----------
 app.use(webpackDevMiddleware(compiler, {
@@ -35,6 +38,7 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 app.use(express.static(path.join(__dirname, 'dist')))
 app.use(cors(corsOptions))
+app.use(bodyParser.text())
 
 
 // ---------- Listen ----------
@@ -45,23 +49,24 @@ app.listen(port, () => {
 
 // ---------- Routes ----------
 app.get('/', (request, response) => {
-  response.sendFile(path.join(__dirname, './dist/index.html'))
-})
-
-// TODO: kill previous REPL process when user switches to a different language
-app.get('/:language', (request, response) => {
-  console.log('[request.params.language]', request.params.language)
-  let execCommand = Repl.LANGUAGES[request.params.language] || 'node'
-  if (!execCommand) return
-  repl = Repl.new(execCommand)
+  // repl = Repl.new(langRuntime)
+  console.log('[ GET / ]', 'repl:', repl)
   response.sendFile(path.join(__dirname, './dist/index.html'))
 })
 
 app.post('/input', (request, response) => {
+  console.log('[ POST /input ]', '\nrepl.command:', repl.command, '\nrequest.body:', request.body)
   repl.write(request.body)
-    .then((data) => {
-      response.send(data)
-    })
+      .then(data => response.send(data))
 })
+
+// TODO: kill previous REPL process when user switches to a different language
+// app.get('/:language', (request, response) => {
+//   console.log('[request.params.language]', request.params.language)
+//   let langRuntime = Repl.LANGUAGES[request.params.language] || 'node'
+//   if (!langRuntime) return
+  // repl = Repl.new(langRuntime)
+  // response.sendFile(path.join(__dirname, './dist/index.html'))
+// })
 
 console.log('[SERVER.JS]: last line')
