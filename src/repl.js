@@ -38,7 +38,6 @@ const Repl = {
   },
 }
 
-// module.exports = Repl
-export default Repl
+module.exports = Repl
 
 console.log('[REPL.JS]: last line')

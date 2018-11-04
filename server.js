@@ -1,22 +1,18 @@
 console.log('[SERVER.JS]: first line')
 
-import express from 'express'
-// const express = require('express')
-// const webpack = require('webpack')
-// const webpackDevMiddleware = require('webpack-dev-middleware')
+const express = require('express')
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
 
 const app      = express()
-// const config   = require('./webpack.config.js')
-// const compiler = webpack(config)
+const config   = require('./webpack.config.js')
+const compiler = webpack(config)
 
-// const path = require('path')
-import path from 'path'
+const path = require('path')
 const port = process.env.PORT || 3000
 
 // TODO: get CORS to work on custom WebSocket Server
-// const cors = require('cors')
-import cors from 'cors'
-
+const cors = require('cors')
 const corsOptions = {
   origin:      '*',
   credentials: true,  // Set to true to pass the Access-Control-Allow-Credentials CORS header
@@ -30,16 +26,14 @@ const corsOptions = {
   ],
 }
 
-// const Repl = require('./repl.js')
-import Repl from './repl.js'
+const Repl = require('./src/repl.js')
 let repl   = null
 
 // ---------- Middleware ----------
-// app.use(webpackDevMiddleware(compiler, {
-//   publicPath: config.output.publicPath,
-// }))
-// app.use(express.static(path.join(__dirname, 'dist')))
-app.use(express.static('dist'))
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+}))
+app.use(express.static(path.join(__dirname, 'dist')))
 app.use(cors(corsOptions))
 
 
@@ -51,14 +45,12 @@ app.listen(port, () => {
 
 // ---------- Routes ----------
 app.get('/', (request, response) => {
-  // response.sendFile('index.html/javascript')
-  // response.sendFile('./dist/index.html')
   response.sendFile(path.join(__dirname, './dist/index.html'))
 })
 
 // TODO: kill previous REPL process when user switches to a different language
 app.get('/:language', (request, response) => {
-  console.log('|-request.params.language]', request.params.language)
+  console.log('[request.params.language]', request.params.language)
   let execCommand = Repl.LANGUAGES[request.params.language] || 'node'
   if (!execCommand) return
   repl = Repl.new(execCommand)
