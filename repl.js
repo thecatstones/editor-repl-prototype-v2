@@ -1,4 +1,4 @@
-console.log('[REPL.JS]')
+console.log('[REPL.JS]: first line')
 
 const pty = require('node-pty')
 
@@ -38,4 +38,7 @@ const Repl = {
   },
 }
 
-module.exports = Repl
+// module.exports = Repl
+export default Repl
+
+console.log('[REPL.JS]: last line')

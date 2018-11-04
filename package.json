@@ -5,13 +5,10 @@
   "engines": {
     "node": "11.0.0"
   },
-  "esm": {
-    "mode": "auto"
-  },
-  "main": "server.js",
-  "module": "main.js",
+  "main": "entry.js",
+  "module": "server.js",
   "scripts": {
-    "start": "node -r esm index.js",
+    "start": "node -r esm entry.js",
     "build": "",
     "dev": "",
     "heroku-postbuild": ""

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<script>console.log('[INDEX.HTML]: first line')</script>
+
 <html lang='en-US'>
   <head>
     <meta charset='UTF-8' />
@@ -10,15 +13,15 @@
     <div>
       <textarea id='codeMirrorContainer'></textarea>
       <button type='button' id='run-editor-code'>Run Code</button>
-      <pre id='editor-output'>// Editor Output ...<pre>
+      <pre id='editor-output'>// Editor Output ...</pre>
     </div>
 
     <!-- xterm.js REPL -->
     <div id='terminal'></div>
 
 
-    <script>console.log('[index.HTML]')</script>
-
-    <script src='index.js'></script>
+    <script src='client.js' type='module'></script>
   </body>
 </html>
+
+<script>console.log('[INDEX.HTML]: last line')</script>

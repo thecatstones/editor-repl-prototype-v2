@@ -1,6 +1,7 @@
-console.log('[SERVER.JS]')
+console.log('[SERVER.JS]: first line')
 
-const express = require('express')
+import express from 'express'
+// const express = require('express')
 // const webpack = require('webpack')
 // const webpackDevMiddleware = require('webpack-dev-middleware')
 
@@ -8,11 +9,14 @@ const app      = express()
 // const config   = require('./webpack.config.js')
 // const compiler = webpack(config)
 
-const path = require('path')
+// const path = require('path')
+import path from 'path'
 const port = process.env.PORT || 3000
 
 // TODO: get CORS to work on custom WebSocket Server
-const cors = require('cors')
+// const cors = require('cors')
+import cors from 'cors'
+
 const corsOptions = {
   origin:      '*',
   credentials: true,  // Set to true to pass the Access-Control-Allow-Credentials CORS header
@@ -26,14 +30,16 @@ const corsOptions = {
   ],
 }
 
-const Repl = require('./repl.js')
+// const Repl = require('./repl.js')
+import Repl from './repl.js'
 let repl   = null
 
 // ---------- Middleware ----------
 // app.use(webpackDevMiddleware(compiler, {
 //   publicPath: config.output.publicPath,
 // }))
-app.use(express.static(path.join(__dirname, 'dist')))
+// app.use(express.static(path.join(__dirname, 'dist')))
+app.use(express.static('dist'))
 app.use(cors(corsOptions))
 
 
@@ -65,3 +71,5 @@ app.post('/input', (request, response) => {
       response.send(data)
     })
 })
+
+console.log('[SERVER.JS]: last line')
