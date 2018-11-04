@@ -64,6 +64,55 @@ let state = {
   line: '',
 }
 
+
+// ========================= Yjs =========================
+import Y                 from 'yjs'
+import yWebsocketsClient from 'y-websockets-client'
+import yMemory           from 'y-memory'
+import yArray            from 'y-array'
+import yText             from 'y-text'
+Y.extend(yWebsocketsClient, yMemory, yArray, yText)
+const url = 'https://catstones-websocket-server.herokuapp.com/'
+const io  = Y['websockets-client'].io
+Y({
+  db: {
+    name: 'memory',             // store the shared data in memory
+  },
+  connector: {
+    name: 'websockets-client',  // use the websockets connector
+    room: 'catstones-repl',     // instances connected to the same room share data
+    // TODO: uncomment to use custom WebSocket server
+    // socket: io(url),         // Pass socket.io object to use (CORS...?)
+    // url,
+  },
+  share: {                      // specify the shared content
+    array:       'Array',
+    editorText:  'Text',
+    termLine:    'Array',
+    termOutput:  'Array',
+  },
+}).then((y) => {                // Yjs is successfully initialized
+  console.log('Yjs instance ready!')
+  window.y = y
+
+  y.share.editorText.bindCodeMirror(editor)
+
+  y.share.termLine.observe((event) => {
+    if (event.type === 'insert') {
+      event.values.forEach((val) => {
+        term.write(val)
+        state.line += val
+      })
+    } else {
+      term.write('\b \b')
+      state.line = state.line.slice(0, -1)
+    }
+  })
+})
+
+
+
+// #================= REPL =================#
 const evaluate = (line) => {
   console.log('[evaluate]', 'state.line ==', state.line, 'line ==', line)
   return fetch('/input', {
@@ -87,15 +136,17 @@ const handleTermEnter = (event) => {
 
 const handleTermBackspace = (event) => {
   console.log('[handleTermBackspace]', event)
-  term.write('\b \b')
-  state.line = state.line.slice(0, -1)
-  console.log('state.line ==', state.line)
+  y.share.termLine.delete(y.share.termLine.length - 1)
+  // term.write('\b \b')
+  // state.line = state.line.slice(0, -1)
+  // console.log('state.line ==', state.line)
 }
 
 const handleTermKeypress = (key, event) => {
   console.log('----------------------\n[handleTermKeypress]', 'state.line ==', state.line, key, event)
-  term.write(key)
-  state.line += key
+  y.share.termLine.push([key])
+  // term.write(key)
+  // state.line += key
 }
 
 const handleTermKeydown = (event) => {
@@ -103,10 +154,6 @@ const handleTermKeydown = (event) => {
   if      (event.key === 'Enter')     handleTermEnter(event)
   else if (event.key === 'Backspace') handleTermBackspace(event)
 }
-
-term.on('keypress', handleTermKeypress)
-term.on('keydown',  handleTermKeydown)
-
 
 const handleRunCodeClick = (event) => {
   console.log('[handleRunCodeClick]', event)
@@ -121,44 +168,54 @@ const handleRunCodeClick = (event) => {
     })
 }
 
+term.on('keypress', handleTermKeypress)
+term.on('keydown',  handleTermKeydown)
+
 const runCodeButton   = document.getElementById('run-code')
 runCodeButton.onclick = handleRunCodeClick
 
 
 
-// ========================= Yjs =========================
-import Y                 from 'yjs'
-import yWebsocketsClient from 'y-websockets-client'
-import yMemory           from 'y-memory'
-import yArray            from 'y-array'
-import yText             from 'y-text'
-Y.extend(yWebsocketsClient, yMemory, yArray, yText)
-const url = 'https://catstones-websocket-server.herokuapp.com/'
-const io  = Y['websockets-client'].io
-Y({
-  db: {
-    name: 'memory',             // store the shared data in memory
-  },
-  connector: {
-    name: 'websockets-client',  // use the websockets connector
-    room: 'catstones-repl',     // instances connected to the same room share data
-    // TODO: uncomment to use custom WebSocket server
-    // socket: io(url),         // Pass socket.io object to use (CORS...?)
-    // url,
-  },
-  share: {                      // specify the shared content
-    array:         'Array',
-    editorText:    'Text',
-    terminalText:  'Text',
-  },
-}).then((y) => {                // Yjs is successfully initialized
-  console.log('Yjs instance ready!')
-  window.y = y
-
-  y.share.editorText.bindCodeMirror(editor)
-})
 
 
+//  // setup REPL sharing
+//   // TODO: refactor
+//   const consoleElm  = document.querySelector('#console')
+//   const clearButton = document.querySelector('#clear')
+
+//   clearButton.addEventListener('click', (event) => {
+//     y.share.array.delete(0, y.share.array.length)
+//     consoleForm.reset()
+//     y.share.ReplText.delete(0, y.share.ReplText.length)
+//   })
+
+//   const consoleForm = document.querySelector('#console-form')
+//   consoleForm.addEventListener('submit', (event) => {
+//     event.preventDefault()
+//     let command = event.target.querySelector('#command').value
+//     y.share.array.push([`>> ${command}\n`])
+//     let value   = eval(command)
+//     let output  = `${JSON.stringify(value)}\n`
+//     y.share.array.push([output])
+//     consoleForm.reset()
+//     y.share.ReplText.delete(0, y.share.ReplText.length)
+//   })
+
+//   y.share.ReplText.bind(document.querySelector('#command'))
+
+//   y.share.array.observe(event => {
+//     if (event.type == 'insert') {
+//       event.values.forEach(value => {
+//         consoleElm.innerHTML += value
+//       })
+//     } else {
+//       consoleElm.innerHTML = ''
+//     }
+//   })
+
+
+
+// #===========================================#
 // Yjs
 window.Y          = Y
 window.io         = Y['websockets-client'].io
