@@ -1,30 +1,29 @@
-body {
-  background:  #000;
-  color:       #eee;
-}
-
-/* html, body, textarea, input, div, button, pre, .terminal, .xterm, #terminal, .codeMirrorContainer, .CodeMirror { */
-/*   font-family: 'Fira Code', 'Inconsolata LGC', 'Inconsolata', Consolas, Monaco, 'Fira Mono', 'Liberation Mono', 'Droid Sans Mono', monospace */
-/* } */
-
-input  {
-  background:  #151515;
-  border:      #33b5e5;
-  color:       #eee;
+html, body, textarea, input, div, button, pre, .terminal, .xterm, #terminal, .codeMirrorContainer, .CodeMirror {
+  background-color: #282c34;
+  color: #abb2bf;
+  font-family: 'Fira Code', 'Inconsolata', Menlo, Monaco, Consolas, Monaco, 'Droid Sans Mono', monospace;
+  font-size: 15px;
 }
 
 button {
-  background:  #33b5e5;
-  border:      none;
-  color:       #000;
+  background:     #61afef;
+  border:         none;
+  border-radius:  2px;
+  color:          #1e2127;
+}
+button:hover {
+  background: #56b6c2;
+  cursor: pointer;
 }
 
 #editor-output, #terminal {
-  border-top: solid 1px #33b5e5;
-  /* border-top: solid 1px #a34523; */
+  border-top: solid 1px #61afef;
   padding-top: 15px;
 }
-
+.CodeMirror-vscrollbar, .CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar, .xterm .xterm-viewport {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
 /* .xterm .xterm-screen canvas .xterm .xterm-viewport { */
 /*   background: #ffffff; */
 /*   color: #000; */

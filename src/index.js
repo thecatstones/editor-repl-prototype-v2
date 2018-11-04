@@ -4,7 +4,6 @@ console.log('[INDEX.JS]: first line')
 // ======================= Editor =========================
 import CodeMirror from 'codemirror-minified/lib/codemirror.js'
 import 'codemirror-minified/lib/codemirror.css'
-// import 'codemirror-minified/theme/seti.css'
 import 'codemirror-one-dark-theme/one-dark.css'
 import 'codemirror-minified/mode/javascript/javascript.js'
 const code   = document.getElementById('codeMirrorContainer')
@@ -23,15 +22,43 @@ import 'xterm/dist/xterm.css'
 import './style.css'
 Terminal.applyAddon(fit)
 const term = new Terminal()
-// const term = new Terminal({
-//   theme: { background: '#000000', color: '#000000' }
-// });
+
+window.term = term
+
+term.setOption('theme', {
+  foreground:     '#abb2bf',
+  background:     '#282c34',
+  cursor:         '#e06c75',
+  cursorAccent:   '#e06c75',
+  selection:      '#98c379',
+  black:          '#98c379',
+  red:            '#d19a66',
+  green:          '#d19a66',
+  yellow:         '#61afef',
+  blue:           '#61afef',
+  magenta:        '#c678dd',
+  cyan:           '#c678dd',
+  white:          '#56b6c2',
+  brightBlack:    '#56b6c2',
+  brightRed:      '#abb2bf',
+  brightGreen:    '#ffffff',
+  brightYellow:   '#abb2bf',
+  brightBlue:     '#abb2bf',
+  brightMagenta:  '#3a3f4b',
+  brightCyan:     '#5c6370',
+  brightWhite:    '#1e2127',
+})
+term.setOption('cursorBlink', true)
+term.setOption('enableBold', true)
+term.setOption('fontSize', 15)
+term.setOption('fontFamily', 'monospace')
+term.setOption('tabStopWidth', 2)
 
 term.open(document.getElementById('terminal'))
 term.fit()
-term.writeln('----- The Cat Stones REPL -----')
-term.writeln('')
-term.write('>> ')
+// term.writeln('--- The Cat Stones REPL ---')
+// term.writeln('')
+term.write('> ')
 
 const termTextArea = document.querySelector('.xterm-helper-textarea')
 
