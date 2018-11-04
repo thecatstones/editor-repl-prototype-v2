@@ -1,24 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
+<!-- <script>console.log('[INDEX.HTML]: first line')</script> -->
+
 <html lang='en-US'>
   <head>
     <meta charset='UTF-8' />
-    <title>The Cat Stones REPL</title>
+    <title>The Cat Stones REPL - @dev</title>
   </head>
   <body>
     <div>
       <textarea id='codeMirrorContainer'></textarea>
-      <button type='button' id='run-editor-code'>Run Editor Code</button>
+      <button type='button' id='run-code'>Run Code</button>
+      <!-- <pre id='editor-output'>// Editor Output ...</pre> -->
     </div>
 
-    <div>
-      <form id='console-form'>
-        <input type='text' id='command' />
-        <button type='submit'>Run Command</button>
-        <button id='clear' type='button'>Clear</button>
-      </form>
-      <pre id='console'></pre>
-    </div>
+    <div id='terminal'></div>
 
     <script src='main.js'></script>
   </body>
 </html>
+
+<script>console.log('[INDEX.HTML]: last line')</script>

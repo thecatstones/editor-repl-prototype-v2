@@ -5,8 +5,7 @@
   "engines": {
     "node": "11.0.0"
   },
-  "main": "index.js",
-  "private": true,
+  "main": "server.js",
   "scripts": {
     "build": "webpack",
     "dev": "webpack-dev-server --open",
@@ -14,22 +13,26 @@
     "heroku-postbuild": "webpack -p"
   },
   "author": "thecatstones",
-  "license": "ISC",
-  "devDependencies": {},
+  "license": "MIT",
   "dependencies": {
-    "codemirror": "^5.41.0",
+    "body-parser": "^1.18.3",
+    "codemirror-minified": "^5.37.0",
+    "codemirror-one-dark-theme": "^1.1.1",
     "cors": "^2.8.4",
-    "css-loader": "^1.0.0",
+    "css-loader": "^1.0.1",
     "express": "^4.16.4",
+    "node-pty": "^0.7.8",
     "style-loader": "^0.23.1",
-    "webpack": "^4.23.1",
+    "webpack": "^4.24.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-dev-server": "^3.1.10",
+    "xterm": "^3.8.0",
     "y-array": "^10.1.4",
     "y-memory": "^8.0.9",
     "y-text": "^9.5.1",
     "y-websockets-client": "^8.0.16",
     "yjs": "^12.3.3"
-  }
+  },
+  "repository": "git@github.com:thecatstones/editor-repl-prototype-v2.git"
 }

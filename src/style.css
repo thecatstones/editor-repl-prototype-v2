@@ -1,27 +1,37 @@
-body {
-  background:  #000;
-  color:       #eee;
-}
-
-input  {
-  background:  #151515;
-  color:       #eee;
-  border:      #33b5e5;
+html, body, textarea, input, div, button, pre, .terminal, .xterm, #terminal, .codeMirrorContainer, .CodeMirror {
+  background-color: #282c34;
+  color: #abb2bf;
+  font-family: 'Fira Code', 'Inconsolata', Menlo, Monaco, Consolas, Monaco, 'Droid Sans Mono', monospace;
+  font-size: 15px;
 }
 
 button {
-  background:  #33b5e5;
-  color:       #000;
-  border:      none;
+  background:     #61afef;
+  border:         none;
+  border-radius:  2px;
+  color:          #1e2127;
+}
+button:hover {
+  background: #56b6c2;
+  cursor: pointer;
 }
 
-pre {
-  border-top: solid 1px #33b5e5;
+#editor-output, #terminal {
+  border-top: solid 1px #61afef;
+  padding-top: 15px;
 }
+.CodeMirror-vscrollbar, .CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar, .xterm .xterm-viewport {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+/* .xterm .xterm-screen canvas .xterm .xterm-viewport { */
+/*   background: #ffffff; */
+/*   color: #000; */
+/* } */
 
-#console-form {
-  border-top: solid 1px #33b5e5;
-}
+/* .codeMirrorContainer { */
+/*   display: block; */
+/* } */
 
 /* .CodeMirror { */
 /*   position:  fixed; */
